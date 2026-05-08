@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Asset</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <style>
+        body{
+            background: #f4f7fb;
+        }
+
+        .card{
+            border: none;
+            border-radius: 20px;
+        }
+
+        .form-control,
+        .form-select{
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .btn{
+            border-radius: 12px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header bg-white border-0 pt-4">
+                    <h3 class="fw-bold mb-1">
+                        <i class="bi bi-plus-circle"></i>
+                        Add New Asset
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Input data asset IT perusahaan
+                    </p>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form action="{{ route('asset.update', $asset->id) }}" method="POST">
+
+                        @csrf
+
+                        <div class="row">
+
+                            <!-- Category -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">
+                                    Category
+                                </label>
+
+                                <input 
+                                    type="text"
+                                    name="category"
+                                    class="form-control"
+                                    value="{{ $asset->category }}"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Type -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">
+                                    Type / Brand
+                                </label>
+
+                                <input 
+                                    type="text"
+                                    name="type"
+                                    class="form-control"
+                                    value="{{ $asset->type }}"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Serial Number -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">
+                                    Serial Number
+                                </label>
+
+                                <input 
+                                    type="text"
+                                    name="serial_number"
+                                    class="form-control"
+                                    value="{{ $asset->serial_number }}"
+                                >
+                            </div>
+
+                            <!-- User -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">
+                                    User
+                                </label>
+
+                                <input 
+                                    type="text"
+                                    name="user"
+                                    class="form-control"
+                                    value="{{ $asset->user }}"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Department -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">
+                                    Department
+                                </label>
+
+                                <select 
+                                    name="department"
+                                    class="form-select"
+                                    required
+                                >
+                                    <option value="Finance" {{ $asset->department == 'Finance' ? 'selected' : '' }}>Finance</option>
+
+                                    <option value="IT" {{ $asset->department == 'IT' ? 'selected' : '' }}>IT</option>
+
+                                    <option value="HRD" {{ $asset->department == 'HRD' ? 'selected' : '' }}>HRD</option>
+
+                                    <option value="Marketing" {{ $asset->department == 'Marketing' ? 'selected' : '' }}>Marketing</option>
+
+                                    <option value="Production" {{ $asset->department == 'Production' ? 'selected' : '' }}>Production</option>
+                                </select>
+                            </div>
+
+                            <!-- Info -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">
+                                    Info
+                                </label>
+
+                                <input 
+                                    type="text"
+                                    name="info"
+                                    class="form-control"
+                                    value="{{ $asset->info }}"
+                                >
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="col-12 mt-3">
+
+                                <div class="d-flex gap-2">
+
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-save"></i>
+                                        Update Asset
+                                    </button>
+
+                                    <a href="{{ route('asset.index') }}" class="btn btn-secondary">
+                                        <i class="bi bi-arrow-left"></i>
+                                        Back
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
