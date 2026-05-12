@@ -1,178 +1,209 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Asset</title>
+@extends('layouts.app')
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
+<!-- Main Content -->
+<section class="content">
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <div class="container-fluid">
 
-    <style>
-        body{
-            background: #f4f7fb;
-        }
+        <div class="row justify-content-center">
 
-        .card{
-            border: none;
-            border-radius: 20px;
-        }
+            <div class="col-lg-8">
 
-        .form-control,
-        .form-select{
-            border-radius: 12px;
-            padding: 12px;
-        }
+                <div class="card card-primary">
 
-        .btn{
-            border-radius: 12px;
-            padding: 10px 20px;
-        }
-    </style>
-</head>
-<body>
+                    <!-- Card Header -->
+                    <div class="card-header">
 
-<div class="container py-5">
+                        <h3 class="card-title">
 
-    <div class="row justify-content-center">
+                            <i class="fas fa-plus-circle"></i>
+                            Asset Form
 
-        <div class="col-lg-8">
+                        </h3>
 
-            <div class="card shadow-sm">
+                    </div>
 
-                <div class="card-header bg-white border-0 pt-4">
-                    <h3 class="fw-bold mb-1">
-                        <i class="bi bi-plus-circle"></i>
-                        Add New Asset
-                    </h3>
-
-                    <p class="text-muted mb-0">
-                        Input data asset IT perusahaan
-                    </p>
-                </div>
-
-                <div class="card-body p-4">
-
-                    <form action="{{ route('asset.store') }}" method="POST">
+                    <!-- Form -->
+                    <form action="{{ route('asset.store') }}"
+                          method="POST">
 
                         @csrf
 
-                        <div class="row">
+                        <div class="card-body">
 
-                            <!-- Category -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    Category
-                                </label>
+                            <div class="row">
 
-                                <input 
-                                    type="text"
-                                    name="category"
-                                    class="form-control"
-                                    placeholder="Contoh: PC Lengkap"
-                                    required
-                                >
-                            </div>
+                                <!-- Category -->
+                                <div class="col-md-6">
 
-                            <!-- Type -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    Type / Brand
-                                </label>
+                                    <div class="form-group">
 
-                                <input 
-                                    type="text"
-                                    name="type"
-                                    class="form-control"
-                                    placeholder="Contoh: Rakitan / Lenovo"
-                                    required
-                                >
-                            </div>
+                                        <label>
+                                            Category
+                                        </label>
 
-                            <!-- Serial Number -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    Serial Number
-                                </label>
+                                        <input 
+                                            type="text"
+                                            name="category"
+                                            class="form-control"
+                                            placeholder="Contoh: PC Lengkap"
+                                            required
+                                        >
 
-                                <input 
-                                    type="text"
-                                    name="serial_number"
-                                    class="form-control"
-                                    placeholder="Optional"
-                                >
-                            </div>
+                                    </div>
 
-                            <!-- User -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    User
-                                </label>
+                                </div>
 
-                                <input 
-                                    type="text"
-                                    name="user"
-                                    class="form-control"
-                                    placeholder="Nama user"
-                                    required
-                                >
-                            </div>
+                                <!-- Type -->
+                                <div class="col-md-6">
 
-                            <!-- Department -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    Department
-                                </label>
+                                    <div class="form-group">
 
-                                <select 
-                                    name="department"
-                                    class="form-select"
-                                    required
-                                >
-                                    <option value="">-- Choose Department --</option>
-                                    <option value="Finance">Finance</option>
-                                    <option value="IT">IT</option>
-                                    <option value="HRD">HRD</option>
-                                    <option value="Marketing">Marketing</option>
-                                    <option value="Production">Production</option>
-                                </select>
-                            </div>
+                                        <label>
+                                            Type / Brand
+                                        </label>
 
-                            <!-- Info -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    Info
-                                </label>
+                                        <input 
+                                            type="text"
+                                            name="type"
+                                            class="form-control"
+                                            placeholder="Contoh: Rakitan / Lenovo"
+                                            required
+                                        >
 
-                                <input 
-                                    type="text"
-                                    name="info"
-                                    class="form-control"
-                                    placeholder="Keterangan tambahan"
-                                >
-                            </div>
+                                    </div>
 
-                            <!-- Buttons -->
-                            <div class="col-12 mt-3">
+                                </div>
 
-                                <div class="d-flex gap-2">
+                                <!-- Serial Number -->
+                                <div class="col-md-6">
 
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="bi bi-save"></i>
-                                        Save Asset
-                                    </button>
+                                    <div class="form-group">
 
-                                    <a href="{{ route('asset.index') }}" class="btn btn-secondary">
-                                        <i class="bi bi-arrow-left"></i>
-                                        Back
-                                    </a>
+                                        <label>
+                                            Serial Number
+                                        </label>
+
+                                        <input 
+                                            type="text"
+                                            name="serial_number"
+                                            class="form-control"
+                                            placeholder="Optional"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                                <!-- User -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            User
+                                        </label>
+
+                                        <input 
+                                            type="text"
+                                            name="user"
+                                            class="form-control"
+                                            placeholder="Nama user"
+                                            required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Department -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Department
+                                        </label>
+
+                                        <select 
+                                            name="department"
+                                            class="form-control"
+                                            required
+                                        >
+
+                                            <option value="">
+                                                -- Choose Department --
+                                            </option>
+
+                                            <option value="Finance">
+                                                Finance
+                                            </option>
+
+                                            <option value="IT">
+                                                IT
+                                            </option>
+
+                                            <option value="HRD">
+                                                HRD
+                                            </option>
+
+                                            <option value="Marketing">
+                                                Marketing
+                                            </option>
+
+                                            <option value="Production">
+                                                Production
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Info -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Info
+                                        </label>
+
+                                        <input 
+                                            type="text"
+                                            name="info"
+                                            class="form-control"
+                                            placeholder="Keterangan tambahan"
+                                        >
+
+                                    </div>
 
                                 </div>
 
                             </div>
+
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="card-footer">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="fas fa-save"></i>
+                                Save Asset
+
+                            </button>
+
+                            <a href="{{ route('asset.index') }}"
+                               class="btn btn-secondary">
+
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+
+                            </a>
 
                         </div>
 
@@ -186,7 +217,6 @@
 
     </div>
 
-</div>
+</section>
 
-</body>
-</html>
+@endsection

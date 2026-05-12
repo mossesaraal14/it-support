@@ -57,4 +57,21 @@ class AssetController extends Controller
 
         return redirect()->route('asset.index')->with('success', 'Asset has been updated successfully');
     }
+
+    public function search(Request $request) {
+        $search = $request->search;
+
+        $assets = Asset::when($search, function ($query, $search) {
+
+            $query->whereRaw('LOWER(category) LIKE ?', ["%{$search}%"])
+                ->orWhereRaw('LOWER(type) LIKE ?', ["%{$search}%"])
+                ->orWhereRaw('LOWER(serial_number) LIKE ?', ["%{$search}%"])
+                ->orWhereRaw('LOWER(user) LIKE ?', ["%{$search}%"])
+                ->orWhereRaw('LOWER(department) LIKE ?', ["%{$search}%"])
+                ->orWhereRaw('LOWER(info) LIKE ?', ["%{$search}%"]);
+
+        })->latest()->get();
+
+        return view('index', compact('assets'));
+    }
 }

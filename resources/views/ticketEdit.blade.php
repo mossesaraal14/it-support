@@ -1,217 +1,218 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Ticket</title>
+@extends('layouts.app')
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
+<!-- Main Content -->
+<section class="content">
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <div class="container-fluid">
 
-    <style>
-        body{
-            background: #f4f7fb;
-        }
+        <div class="row justify-content-center">
 
-        .card{
-            border: none;
-            border-radius: 20px;
-        }
+            <div class="col-lg-8">
 
-        .form-control,
-        .form-select,
-        textarea{
-            border-radius: 12px;
-            padding: 12px;
-        }
+                <div class="card card-primary">
 
-        .btn{
-            border-radius: 12px;
-            padding: 10px 20px;
-        }
-    </style>
-</head>
-<body>
+                    <!-- Card Header -->
+                    <div class="card-header">
 
-<div class="container py-5">
+                        <h3 class="card-title">
 
-    <div class="row justify-content-center">
+                            <i class="fas fa-ticket-alt"></i>
+                            Edit Ticket Form
 
-        <div class="col-lg-8">
+                        </h3>
 
-            <div class="card shadow-sm">
+                    </div>
 
-                <div class="card-header bg-white border-0 pt-4">
-
-                    <h3 class="fw-bold mb-1">
-                        <i class="bi bi-ticket-detailed"></i>
-                        Create New Ticket
-                    </h3>
-
-                    <p class="text-muted mb-0">
-                        Input ticket IT support perusahaan
-                    </p>
-
-                </div>
-
-                <div class="card-body p-4">
-
-                    <form action="{{ route('ticket.update', $ticket->id) }}" method="POST">
+                    <!-- Form -->
+                    <form action="{{ route('ticket.update', $ticket->id) }}"
+                          method="POST">
 
                         @csrf
+                        @method('PUT')
 
-                        <div class="row">
+                        <div class="card-body">
 
-                            <!-- User -->
-                            <div class="col-md-6 mb-3">
+                            <div class="row">
 
-                                <label class="form-label fw-semibold">
-                                    User
-                                </label>
+                                <!-- User -->
+                                <div class="col-md-6">
 
-                                <input 
-                                    type="text"
-                                    name="user"
-                                    class="form-control"
-                                    placeholder="Nama user"
-                                    value="{{ $ticket->user }}"
-                                    required
-                                >
+                                    <div class="form-group">
 
-                            </div>
+                                        <label>
+                                            User
+                                        </label>
 
-                            <!-- Department -->
-                            <div class="col-md-6 mb-3">
+                                        <input 
+                                            type="text"
+                                            name="user"
+                                            class="form-control"
+                                            placeholder="Nama user"
+                                            value="{{ $ticket->user }}"
+                                            required
+                                        >
 
-                                <label class="form-label fw-semibold">
-                                    Department
-                                </label>
+                                    </div>
 
-                                <select 
-                                    name="department"
-                                    class="form-select"
-                                    required
-                                >
+                                </div>
 
-                                    <option value="">-- Choose Department --</option>
+                                <!-- Department -->
+                                <div class="col-md-6">
 
-                                    <option value="Finance" {{ $ticket->department == 'Finance' ? 'selected' : '' }}>
-                                        Finance
-                                    </option>
+                                    <div class="form-group">
 
-                                    <option value="IT" {{ $ticket->department == 'IT' ? 'selected' : '' }}>
-                                        IT
-                                    </option>
+                                        <label>
+                                            Department
+                                        </label>
 
-                                    <option value="HRD" {{ $ticket->department == 'HRD' ? 'selected' : '' }}>
-                                        HRD
-                                    </option>
+                                        <select 
+                                            name="department"
+                                            class="form-control"
+                                            required
+                                        >
 
-                                    <option value="Marketing" {{ $ticket->department == 'Marketing' ? 'selected' : '' }}>
-                                        Marketing
-                                    </option>
+                                            <option value="">
+                                                -- Choose Department --
+                                            </option>
 
-                                    <option value="Production" {{ $ticket->department == 'Production' ? 'selected' : '' }}>
-                                        Production
-                                    </option>
+                                            <option value="Finance"
+                                                {{ $ticket->department == 'Finance' ? 'selected' : '' }}>
+                                                Finance
+                                            </option>
 
-                                    <option value="Purchasing" {{ $ticket->department == 'Purchasing' ? 'selected' : '' }}>
-                                        Purchasing
-                                    </option>
+                                            <option value="IT"
+                                                {{ $ticket->department == 'IT' ? 'selected' : '' }}>
+                                                IT
+                                            </option>
 
-                                </select>
+                                            <option value="HRD"
+                                                {{ $ticket->department == 'HRD' ? 'selected' : '' }}>
+                                                HRD
+                                            </option>
 
-                            </div>
+                                            <option value="Marketing"
+                                                {{ $ticket->department == 'Marketing' ? 'selected' : '' }}>
+                                                Marketing
+                                            </option>
 
-                            <!-- Description -->
-                            <div class="col-12 mb-3">
+                                            <option value="Production"
+                                                {{ $ticket->department == 'Production' ? 'selected' : '' }}>
+                                                Production
+                                            </option>
 
-                                <label class="form-label fw-semibold">
-                                    Problem Description
-                                </label>
+                                            <option value="Purchasing"
+                                                {{ $ticket->department == 'Purchasing' ? 'selected' : '' }}>
+                                                Purchasing
+                                            </option>
 
-                                <textarea 
-                                    name="description"
-                                    class="form-control"
-                                    rows="5"
-                                    placeholder="Contoh: Tidak bisa print, internet disconnect, aplikasi error, dll"
-                                    required
-                                >{{ $ticket->description }}</textarea>
+                                        </select>
 
-                            </div>
+                                    </div>
 
-                            <!-- Location -->
-                            <div class="col-md-6 mb-3">
+                                </div>
 
-                                <label class="form-label fw-semibold">
-                                    Location
-                                </label>
+                                <!-- Description -->
+                                <div class="col-12">
 
-                                <input 
-                                    type="text"
-                                    name="location"
-                                    class="form-control"
-                                    placeholder="Contoh: Office HRD"
-                                    value="{{ $ticket->location }}"
-                                    required
-                                >
+                                    <div class="form-group">
 
-                            </div>
+                                        <label>
+                                            Problem Description
+                                        </label>
 
-                            <!-- Status -->
-                            <div class="col-md-6 mb-3">
+                                        <textarea 
+                                            name="description"
+                                            class="form-control"
+                                            rows="5"
+                                            placeholder="Contoh: Tidak bisa print, internet disconnect, aplikasi error, dll"
+                                            required
+                                        >{{ $ticket->description }}</textarea>
 
-                                <label class="form-label fw-semibold">
-                                    Status
-                                </label>
+                                    </div>
 
-                                <select 
-                                    name="status"
-                                    class="form-select"
-                                    required
-                                >
+                                </div>
 
-                                    <option value="Open" {{ $ticket->status == 'Open' ? 'selected' : '' }}>
-                                        Open
-                                    </option>
+                                <!-- Location -->
+                                <div class="col-md-6">
 
-                                    <option value="Progress" {{ $ticket->status == 'Progress' ? 'selected' : '' }}>
-                                        Progress
-                                    </option>
+                                    <div class="form-group">
 
-                                    <option value="Done" {{ $ticket->status == 'Done' ? 'selected' : '' }}>
-                                        Done
-                                    </option>
+                                        <label>
+                                            Location
+                                        </label>
 
-                                </select>
+                                        <input 
+                                            type="text"
+                                            name="location"
+                                            class="form-control"
+                                            placeholder="Contoh: Office HRD"
+                                            value="{{ $ticket->location }}"
+                                            required
+                                        >
 
-                            </div>
+                                    </div>
 
-                            <!-- Buttons -->
-                            <div class="col-12 mt-3">
+                                </div>
 
-                                <div class="d-flex gap-2">
+                                <!-- Status -->
+                                <div class="col-md-6">
 
-                                    <button type="submit" class="btn btn-primary">
+                                    <div class="form-group">
 
-                                        <i class="bi bi-save"></i>
-                                        Update Ticket
+                                        <label>
+                                            Status
+                                        </label>
 
-                                    </button>
+                                        <select 
+                                            name="status"
+                                            class="form-control"
+                                            required
+                                        >
 
-                                    <a href="{{ route('ticket.index') }}" class="btn btn-secondary">
+                                            <option value="Open"
+                                                {{ $ticket->status == 'Open' ? 'selected' : '' }}>
+                                                Open
+                                            </option>
 
-                                        <i class="bi bi-arrow-left"></i>
-                                        Back
+                                            <option value="Progress"
+                                                {{ $ticket->status == 'Progress' ? 'selected' : '' }}>
+                                                Progress
+                                            </option>
 
-                                    </a>
+                                            <option value="Done"
+                                                {{ $ticket->status == 'Done' ? 'selected' : '' }}>
+                                                Done
+                                            </option>
+
+                                        </select>
+
+                                    </div>
 
                                 </div>
 
                             </div>
+
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="card-footer">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="fas fa-save"></i>
+                                Update Ticket
+
+                            </button>
+
+                            <a href="{{ route('ticket.index') }}"
+                               class="btn btn-secondary">
+
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+
+                            </a>
 
                         </div>
 
@@ -225,7 +226,6 @@
 
     </div>
 
-</div>
+</section>
 
-</body>
-</html>
+@endsection

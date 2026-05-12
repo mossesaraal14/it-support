@@ -1,189 +1,206 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Ticket</title>
+@extends('layouts.app')
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
+<!-- Main Content -->
+<section class="content">
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <div class="container-fluid">
 
-    <style>
-        body{
-            background: #f4f7fb;
-        }
+        <div class="row justify-content-center">
 
-        .card{
-            border: none;
-            border-radius: 20px;
-        }
+            <div class="col-lg-8">
 
-        .form-control,
-        .form-select,
-        textarea{
-            border-radius: 12px;
-            padding: 12px;
-        }
+                <div class="card card-primary">
 
-        .btn{
-            border-radius: 12px;
-            padding: 10px 20px;
-        }
-    </style>
-</head>
-<body>
+                    <!-- Card Header -->
+                    <div class="card-header">
 
-<div class="container py-5">
+                        <h3 class="card-title">
 
-    <div class="row justify-content-center">
+                            <i class="fas fa-ticket-alt"></i>
+                            Ticket Form
 
-        <div class="col-lg-8">
+                        </h3>
 
-            <div class="card shadow-sm">
+                    </div>
 
-                <div class="card-header bg-white border-0 pt-4">
-
-                    <h3 class="fw-bold mb-1">
-                        <i class="bi bi-ticket-detailed"></i>
-                        Create New Ticket
-                    </h3>
-
-                    <p class="text-muted mb-0">
-                        Input ticket IT support perusahaan
-                    </p>
-
-                </div>
-
-                <div class="card-body p-4">
-
-                    <form action="{{ route('ticket.store') }}" method="POST">
+                    <!-- Form -->
+                    <form action="{{ route('ticket.store') }}"
+                          method="POST">
 
                         @csrf
 
-                        <div class="row">
+                        <div class="card-body">
 
-                            <!-- User -->
-                            <div class="col-md-6 mb-3">
+                            <div class="row">
 
-                                <label class="form-label fw-semibold">
-                                    User
-                                </label>
+                                <!-- User -->
+                                <div class="col-md-6">
 
-                                <input 
-                                    type="text"
-                                    name="user"
-                                    class="form-control"
-                                    placeholder="Nama user"
-                                    required
-                                >
+                                    <div class="form-group">
 
-                            </div>
+                                        <label>
+                                            User
+                                        </label>
 
-                            <!-- Department -->
-                            <div class="col-md-6 mb-3">
+                                        <input 
+                                            type="text"
+                                            name="user"
+                                            class="form-control"
+                                            placeholder="Nama user"
+                                            required
+                                        >
 
-                                <label class="form-label fw-semibold">
-                                    Department
-                                </label>
+                                    </div>
 
-                                <select 
-                                    name="department"
-                                    class="form-select"
-                                    required
-                                >
+                                </div>
 
-                                    <option value="">-- Choose Department --</option>
-                                    <option value="Finance">Finance</option>
-                                    <option value="IT">IT</option>
-                                    <option value="HRD">HRD</option>
-                                    <option value="Marketing">Marketing</option>
-                                    <option value="Production">Production</option>
-                                    <option value="Purchasing">Purchasing</option>
+                                <!-- Department -->
+                                <div class="col-md-6">
 
-                                </select>
+                                    <div class="form-group">
 
-                            </div>
+                                        <label>
+                                            Department
+                                        </label>
 
-                            <!-- Description -->
-                            <div class="col-12 mb-3">
+                                        <select 
+                                            name="department"
+                                            class="form-control"
+                                            required
+                                        >
 
-                                <label class="form-label fw-semibold">
-                                    Problem Description
-                                </label>
+                                            <option value="">
+                                                -- Choose Department --
+                                            </option>
 
-                                <textarea 
-                                    name="description"
-                                    class="form-control"
-                                    rows="5"
-                                    placeholder="Contoh: Tidak bisa print, internet disconnect, aplikasi error, dll"
-                                    required
-                                ></textarea>
+                                            <option value="Finance">
+                                                Finance
+                                            </option>
 
-                            </div>
+                                            <option value="IT">
+                                                IT
+                                            </option>
 
-                            <!-- Location -->
-                            <div class="col-md-6 mb-3">
+                                            <option value="HRD">
+                                                HRD
+                                            </option>
 
-                                <label class="form-label fw-semibold">
-                                    Location
-                                </label>
+                                            <option value="Marketing">
+                                                Marketing
+                                            </option>
 
-                                <input 
-                                    type="text"
-                                    name="location"
-                                    class="form-control"
-                                    placeholder="Contoh: Office HRD"
-                                    required
-                                >
+                                            <option value="Production">
+                                                Production
+                                            </option>
 
-                            </div>
+                                            <option value="Purchasing">
+                                                Purchasing
+                                            </option>
 
-                            <!-- Status -->
-                            <div class="col-md-6 mb-3">
+                                        </select>
 
-                                <label class="form-label fw-semibold">
-                                    Status
-                                </label>
+                                    </div>
 
-                                <select 
-                                    name="status"
-                                    class="form-select"
-                                    required
-                                >
+                                </div>
 
-                                    <option value="Open">Open</option>
-                                    <option value="Progress">Progress</option>
-                                    <option value="Done">Done</option>
+                                <!-- Description -->
+                                <div class="col-12">
 
-                                </select>
+                                    <div class="form-group">
 
-                            </div>
+                                        <label>
+                                            Problem Description
+                                        </label>
 
-                            <!-- Buttons -->
-                            <div class="col-12 mt-3">
+                                        <textarea 
+                                            name="description"
+                                            class="form-control"
+                                            rows="5"
+                                            placeholder="Contoh: Tidak bisa print, internet disconnect, aplikasi error, dll"
+                                            required
+                                        ></textarea>
 
-                                <div class="d-flex gap-2">
+                                    </div>
 
-                                    <button type="submit" class="btn btn-primary">
+                                </div>
 
-                                        <i class="bi bi-save"></i>
-                                        Save Ticket
+                                <!-- Location -->
+                                <div class="col-md-6">
 
-                                    </button>
+                                    <div class="form-group">
 
-                                    <a href="{{ route('ticket.index') }}" class="btn btn-secondary">
+                                        <label>
+                                            Location
+                                        </label>
 
-                                        <i class="bi bi-arrow-left"></i>
-                                        Back
+                                        <input 
+                                            type="text"
+                                            name="location"
+                                            class="form-control"
+                                            placeholder="Contoh: Office HRD"
+                                            required
+                                        >
 
-                                    </a>
+                                    </div>
+
+                                </div>
+
+                                <!-- Status -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Status
+                                        </label>
+
+                                        <select 
+                                            name="status"
+                                            class="form-control"
+                                            required
+                                        >
+
+                                            <option value="Open">
+                                                Open
+                                            </option>
+
+                                            <option value="Progress">
+                                                Progress
+                                            </option>
+
+                                            <option value="Done">
+                                                Done
+                                            </option>
+
+                                        </select>
+
+                                    </div>
 
                                 </div>
 
                             </div>
+
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="card-footer">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="fas fa-save"></i>
+                                Save Ticket
+
+                            </button>
+
+                            <a href="{{ route('ticket.index') }}"
+                               class="btn btn-secondary">
+
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+
+                            </a>
 
                         </div>
 
@@ -197,7 +214,6 @@
 
     </div>
 
-</div>
+</section>
 
-</body>
-</html>
+@endsection

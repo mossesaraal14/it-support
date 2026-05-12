@@ -54,4 +54,12 @@ class TicketController extends Controller
 
         return redirect()->route('ticket.index')->with('success', 'Ticket has been updated successfully');
     }
+
+    public function search(Request $request) {
+        $search = $request->search;
+
+        $tickets = Ticket::where('user', 'LIKE', "%{$search}%")->orWhere('department', 'LIKE', "%{$search}%")->orWhere('description', 'LIKE', "%{$search}%")->orWhere('location', 'LIKE', "%{$search}%")->get();
+
+        return view('ticketIndex', compact('tickets'));
+    }
 }

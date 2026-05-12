@@ -1,150 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Ticketing System</title>
+@extends('layouts.app')
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<!-- Content Header -->
+<div class="content-header">
 
-    <style>
-        body{
-            background: #f4f7fb;
-            font-family: Arial, sans-serif;
-        }
+    <div class="container-fluid">
 
-        .dashboard-card{
-            border: none;
-            border-radius: 18px;
-            overflow: hidden;
-        }
+        <div class="row mb-2">
 
-        .table thead th{
-            white-space: nowrap;
-            font-size: 14px;
-        }
+            <div class="col-sm-6">
 
-        .badge-custom{
-            font-size: 12px;
-            padding: 8px 12px;
-            border-radius: 10px;
-        }
+                <h1 class="m-0">
+                    IT Ticket Dashboard
+                </h1>
 
-        .table tbody tr{
-            transition: 0.2s ease;
-        }
+            </div>
 
-        .table tbody tr:hover{
-            background-color: #f8fbff;
-            transform: scale(1.002);
-        }
+            <div class="col-sm-6 text-right">
 
-        .avatar{
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            background: #6c757d;
-            color: white;
-            font-size: 14px;
-        }
+                <a href="{{ route('ticket.create') }}"
+                   class="btn btn-primary">
 
-        .search-input{
-            border-radius: 50px;
-            padding-left: 18px;
-        }
+                    <i class="fas fa-plus-circle"></i>
+                    Create Ticket
 
-        .btn-rounded{
-            border-radius: 50px;
-        }
+                </a>
 
-        .table td{
-            vertical-align: middle;
-        }
+            </div>
 
-        .pagination{
-            margin-bottom: 0;
-        }
-
-        .pagination .page-link{
-            border-radius: 10px !important;
-            margin: 0 3px;
-            border: none;
-            color: #0d6efd;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-        }
-
-        .pagination .page-item.active .page-link{
-            background: #0d6efd;
-            color: white;
-        }
-
-        .pagination .page-link:hover{
-            background: #0d6efd;
-            color: white;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container py-5">
-
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-
-        <div>
-            <h2 class="fw-bold mb-1">
-                <i class="bi bi-ticket-detailed"></i>
-                IT Ticket Dashboard
-            </h2>
-
-            <p class="text-muted mb-0">
-                Monitoring ticket IT support secara realtime
-            </p>
         </div>
-
-        <a href="{{ route('ticket.create') }}"
-           class="btn btn-primary btn-rounded px-4 shadow-sm">
-
-            <i class="bi bi-plus-circle"></i>
-            Create Ticket
-
-        </a>
 
     </div>
 
-    <!-- Summary -->
-    <div class="row mb-4">
+</div>
 
-        <!-- Total Ticket -->
-        <div class="col-md-4 mb-3">
+<!-- Main Content -->
+<section class="content">
 
-            <div class="card dashboard-card shadow-sm">
+    <div class="container-fluid">
 
-                <div class="card-body">
+        <!-- Summary -->
+        <div class="row">
 
-                    <div class="d-flex justify-content-between align-items-center">
+            <!-- Total Tickets -->
+            <div class="col-lg-4 col-12">
 
-                        <div>
-                            <p class="text-muted mb-1">Total Tickets</p>
+                <div class="small-box bg-info">
 
-                            <h3 class="fw-bold mb-0">
-                                {{ $tickets->count() }}
-                            </h3>
-                        </div>
+                    <div class="inner">
 
-                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
-                            <i class="bi bi-ticket-perforated fs-3 text-primary"></i>
-                        </div>
+                        <h3>
+                            {{ $tickets->count() }}
+                        </h3>
 
+                        <p>Total Tickets</p>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Departments -->
+            <div class="col-lg-4 col-12">
+
+                <div class="small-box bg-success">
+
+                    <div class="inner">
+
+                        <h3>
+                            {{ \App\Models\Ticket::distinct('department')->count('department') }}
+                        </h3>
+
+                        <p>Departments</p>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Users -->
+            <div class="col-lg-4 col-12">
+
+                <div class="small-box bg-warning">
+
+                    <div class="inner">
+
+                        <h3>
+                            {{ \App\Models\Ticket::distinct('user')->count('user') }}
+                        </h3>
+
+                        <p>Users</p>
+
+                    </div>
+
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
                     </div>
 
                 </div>
@@ -153,125 +114,81 @@
 
         </div>
 
-        <!-- Department -->
-        <div class="col-md-4 mb-3">
+        <!-- Notification -->
+        @if(session('success'))
 
-            <div class="card dashboard-card shadow-sm">
+        <div class="alert alert-success alert-dismissible fade show">
 
-                <div class="card-body">
+            <button type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close">
 
-                    <div class="d-flex justify-content-between align-items-center">
+                <span aria-hidden="true">&times;</span>
 
-                        <div>
-                            <p class="text-muted mb-1">Departments</p>
+            </button>
 
-                            <h3 class="fw-bold mb-0">
-                                {{ \App\Models\Ticket::distinct('department')->count('department') }}
-                            </h3>
-                        </div>
+            <i class="fas fa-check-circle"></i>
 
-                        <div class="bg-success bg-opacity-10 p-3 rounded-circle">
-                            <i class="bi bi-building fs-3 text-success"></i>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
+            {{ session('success') }}
 
         </div>
 
-        <!-- Users -->
-        <div class="col-md-4 mb-3">
+        @endif
 
-            <div class="card dashboard-card shadow-sm">
+        <!-- Table Card -->
+        <div class="card">
 
-                <div class="card-body">
+            <div class="card-header">
 
-                    <div class="d-flex justify-content-between align-items-center">
+                <h3 class="card-title">
 
-                        <div>
-                            <p class="text-muted mb-1">Users</p>
-
-                            <h3 class="fw-bold mb-0">
-                                {{ \App\Models\Ticket::distinct('user')->count('user') }}
-                            </h3>
-                        </div>
-
-                        <div class="bg-warning bg-opacity-10 p-3 rounded-circle">
-                            <i class="bi bi-people fs-3 text-warning"></i>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Notification -->
-    @if(session('success'))
-
-    <div class="alert alert-success alert-dismissible fade show shadow-sm border-0">
-
-        <i class="bi bi-check-circle-fill"></i>
-        {{ session('success') }}
-
-        <button type="button"
-                class="btn-close"
-                data-bs-dismiss="alert">
-        </button>
-
-    </div>
-
-    @endif
-
-    <!-- Table Card -->
-    <div class="card dashboard-card shadow-sm">
-
-        <!-- Card Header -->
-        <div class="card-header bg-white border-0 pt-4 pb-0">
-
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-
-                <h5 class="fw-semibold mb-0">
-                    <i class="bi bi-table"></i>
+                    <i class="fas fa-table"></i>
                     Ticket List
-                </h5>
 
-                <!-- Search -->
-                <form method="GET" class="d-flex">
+                </h3>
 
-                    <input 
-                        type="text"
-                        name="search"
-                        class="form-control search-input me-2"
-                        placeholder="Search ticket..."
-                        value="{{ request('search') }}"
-                    >
+                <div class="card-tools">
 
-                    <button class="btn btn-dark btn-rounded px-4">
-                        <i class="bi bi-search"></i>
-                    </button>
+                    <!-- Search -->
+                    <form method="GET" action="{{ route('ticket.search') }}">
 
-                </form>
+                        <div class="input-group input-group-sm"
+                             style="width: 250px;">
+
+                            <input 
+                                type="text"
+                                name="search"
+                                class="form-control float-right"
+                                placeholder="Search ticket..."
+                                value="{{ request('search') }}"
+                            >
+
+                            <div class="input-group-append">
+
+                                <button type="submit"
+                                        class="btn btn-default">
+
+                                    <i class="fas fa-search"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
 
             </div>
 
-        </div>
+            <!-- Card Body -->
+            <div class="card-body table-responsive p-0">
 
-        <!-- Card Body -->
-        <div class="card-body">
+                <table class="table table-hover text-nowrap">
 
-            <div class="table-responsive">
-
-                <table class="table align-middle table-hover">
-
-                    <thead class="table-light">
+                    <thead>
 
                         <tr>
                             <th>No</th>
@@ -279,6 +196,7 @@
                             <th>Department</th>
                             <th>Description</th>
                             <th>Location</th>
+                            <th>Status</th>
                             <th>Created</th>
                             <th width="100">Action</th>
                         </tr>
@@ -291,31 +209,19 @@
 
                         <tr>
 
-                            <td class="fw-semibold">
+                            <td>
                                 {{ $loop->iteration }}
                             </td>
 
                             <!-- User -->
                             <td>
-
-                                <div class="d-flex align-items-center gap-2">
-
-                                    <div class="avatar">
-                                        {{ strtoupper(substr($ticket->user,0,1)) }}
-                                    </div>
-
-                                    <div class="fw-semibold">
-                                        {{ $ticket->user }}
-                                    </div>
-
-                                </div>
-
+                                {{ $ticket->user }}
                             </td>
 
                             <!-- Department -->
                             <td>
 
-                                <span class="badge bg-success-subtle text-success badge-custom">
+                                <span class="badge badge-success">
                                     {{ $ticket->department }}
                                 </span>
 
@@ -331,30 +237,55 @@
                                 {{ $ticket->location }}
                             </td>
 
-                            <!-- Date -->
-                            <td class="text-muted">
+                            <!-- Status -->
+                            <td>
+
+                                @if($ticket->status == 'Open')
+
+                                    <span class="badge badge-danger">
+                                        Open
+                                    </span>
+
+                                @elseif($ticket->status == 'Progress')
+
+                                    <span class="badge badge-warning">
+                                        Progress
+                                    </span>
+
+                                @else
+
+                                    <span class="badge badge-success">
+                                        Done
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+                            <!-- Created -->
+                            <td>
                                 {{ $ticket->created_at->format('d M Y') }}
                             </td>
 
                             <!-- Action -->
                             <td>
 
-                                <div class="d-flex gap-2">
+                                <div class="btn-group">
 
                                     <!-- Edit -->
                                     <a href="{{ route('ticket.edit', $ticket->id) }}"
-                                       class="btn btn-sm btn-outline-primary rounded-pill">
+                                       class="btn btn-sm btn-primary">
 
-                                        <i class="bi bi-pencil-square"></i>
+                                        <i class="fas fa-edit"></i>
 
                                     </a>
 
                                     <!-- Delete -->
                                     <a href="{{ route('ticket.destroy', $ticket->id) }}"
-                                       class="btn btn-sm btn-outline-danger rounded-pill"
+                                       class="btn btn-sm btn-danger"
                                        onclick="return confirm('Yakin ingin menghapus ticket ini?')">
 
-                                        <i class="bi bi-trash3-fill"></i>
+                                        <i class="fas fa-trash"></i>
 
                                     </a>
 
@@ -368,12 +299,14 @@
 
                         <tr>
 
-                            <td colspan="7"
-                                class="text-center py-5 text-muted">
+                            <td colspan="8"
+                                class="text-center text-muted py-4">
 
-                                <i class="bi bi-database-x fs-1 d-block mb-3"></i>
+                                <i class="fas fa-database"></i>
 
-                                <h5>No ticket data found</h5>
+                                <br><br>
+
+                                No ticket data found
 
                             </td>
 
@@ -391,10 +324,6 @@
 
     </div>
 
-</div>
+</section>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>
+@endsection

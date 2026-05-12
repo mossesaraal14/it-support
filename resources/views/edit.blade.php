@@ -1,181 +1,212 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Asset</title>
+@extends('layouts.app')
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<!-- Main Content -->
+<section class="content">
 
-    <style>
-        body{
-            background: #f4f7fb;
-        }
+    <div class="container-fluid">
 
-        .card{
-            border: none;
-            border-radius: 20px;
-        }
+        <div class="row justify-content-center">
 
-        .form-control,
-        .form-select{
-            border-radius: 12px;
-            padding: 12px;
-        }
+            <div class="col-lg-8">
 
-        .btn{
-            border-radius: 12px;
-            padding: 10px 20px;
-        }
-    </style>
-</head>
-<body>
+                <div class="card card-primary">
 
-<div class="container py-5">
+                    <!-- Card Header -->
+                    <div class="card-header">
 
-    <div class="row justify-content-center">
+                        <h3 class="card-title">
 
-        <div class="col-lg-8">
+                            <i class="fas fa-edit"></i>
+                            Edit Asset Form
 
-            <div class="card shadow-sm">
+                        </h3>
 
-                <div class="card-header bg-white border-0 pt-4">
-                    <h3 class="fw-bold mb-1">
-                        <i class="bi bi-plus-circle"></i>
-                        Add New Asset
-                    </h3>
+                    </div>
 
-                    <p class="text-muted mb-0">
-                        Input data asset IT perusahaan
-                    </p>
-                </div>
-
-                <div class="card-body p-4">
-
-                    <form action="{{ route('asset.update', $asset->id) }}" method="POST">
+                    <!-- Form -->
+                    <form action="{{ route('asset.update', $asset->id) }}"
+                          method="POST">
 
                         @csrf
+                        @method('PUT')
 
-                        <div class="row">
+                        <div class="card-body">
 
-                            <!-- Category -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    Category
-                                </label>
+                            <div class="row">
 
-                                <input 
-                                    type="text"
-                                    name="category"
-                                    class="form-control"
-                                    value="{{ $asset->category }}"
-                                    required
-                                >
-                            </div>
+                                <!-- Category -->
+                                <div class="col-md-6">
 
-                            <!-- Type -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    Type / Brand
-                                </label>
+                                    <div class="form-group">
 
-                                <input 
-                                    type="text"
-                                    name="type"
-                                    class="form-control"
-                                    value="{{ $asset->type }}"
-                                    required
-                                >
-                            </div>
+                                        <label>
+                                            Category
+                                        </label>
 
-                            <!-- Serial Number -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    Serial Number
-                                </label>
+                                        <input 
+                                            type="text"
+                                            name="category"
+                                            class="form-control"
+                                            value="{{ $asset->category }}"
+                                            required
+                                        >
 
-                                <input 
-                                    type="text"
-                                    name="serial_number"
-                                    class="form-control"
-                                    value="{{ $asset->serial_number }}"
-                                >
-                            </div>
+                                    </div>
 
-                            <!-- User -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    User
-                                </label>
+                                </div>
 
-                                <input 
-                                    type="text"
-                                    name="user"
-                                    class="form-control"
-                                    value="{{ $asset->user }}"
-                                    required
-                                >
-                            </div>
+                                <!-- Type -->
+                                <div class="col-md-6">
 
-                            <!-- Department -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    Department
-                                </label>
+                                    <div class="form-group">
 
-                                <select 
-                                    name="department"
-                                    class="form-select"
-                                    required
-                                >
-                                    <option value="Finance" {{ $asset->department == 'Finance' ? 'selected' : '' }}>Finance</option>
+                                        <label>
+                                            Type / Brand
+                                        </label>
 
-                                    <option value="IT" {{ $asset->department == 'IT' ? 'selected' : '' }}>IT</option>
+                                        <input 
+                                            type="text"
+                                            name="type"
+                                            class="form-control"
+                                            value="{{ $asset->type }}"
+                                            required
+                                        >
 
-                                    <option value="HRD" {{ $asset->department == 'HRD' ? 'selected' : '' }}>HRD</option>
+                                    </div>
 
-                                    <option value="Marketing" {{ $asset->department == 'Marketing' ? 'selected' : '' }}>Marketing</option>
+                                </div>
 
-                                    <option value="Production" {{ $asset->department == 'Production' ? 'selected' : '' }}>Production</option>
-                                </select>
-                            </div>
+                                <!-- Serial Number -->
+                                <div class="col-md-6">
 
-                            <!-- Info -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-semibold">
-                                    Info
-                                </label>
+                                    <div class="form-group">
 
-                                <input 
-                                    type="text"
-                                    name="info"
-                                    class="form-control"
-                                    value="{{ $asset->info }}"
-                                >
-                            </div>
+                                        <label>
+                                            Serial Number
+                                        </label>
 
-                            <!-- Buttons -->
-                            <div class="col-12 mt-3">
+                                        <input 
+                                            type="text"
+                                            name="serial_number"
+                                            class="form-control"
+                                            value="{{ $asset->serial_number }}"
+                                        >
 
-                                <div class="d-flex gap-2">
+                                    </div>
 
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="bi bi-save"></i>
-                                        Update Asset
-                                    </button>
+                                </div>
 
-                                    <a href="{{ route('asset.index') }}" class="btn btn-secondary">
-                                        <i class="bi bi-arrow-left"></i>
-                                        Back
-                                    </a>
+                                <!-- User -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            User
+                                        </label>
+
+                                        <input 
+                                            type="text"
+                                            name="user"
+                                            class="form-control"
+                                            value="{{ $asset->user }}"
+                                            required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Department -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Department
+                                        </label>
+
+                                        <select 
+                                            name="department"
+                                            class="form-control"
+                                            required
+                                        >
+
+                                            <option value="Finance"
+                                                {{ $asset->department == 'Finance' ? 'selected' : '' }}>
+                                                Finance
+                                            </option>
+
+                                            <option value="IT"
+                                                {{ $asset->department == 'IT' ? 'selected' : '' }}>
+                                                IT
+                                            </option>
+
+                                            <option value="HRD"
+                                                {{ $asset->department == 'HRD' ? 'selected' : '' }}>
+                                                HRD
+                                            </option>
+
+                                            <option value="Marketing"
+                                                {{ $asset->department == 'Marketing' ? 'selected' : '' }}>
+                                                Marketing
+                                            </option>
+
+                                            <option value="Production"
+                                                {{ $asset->department == 'Production' ? 'selected' : '' }}>
+                                                Production
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Info -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Info
+                                        </label>
+
+                                        <input 
+                                            type="text"
+                                            name="info"
+                                            class="form-control"
+                                            value="{{ $asset->info }}"
+                                        >
+
+                                    </div>
 
                                 </div>
 
                             </div>
+
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="card-footer">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="fas fa-save"></i>
+                                Update Asset
+
+                            </button>
+
+                            <a href="{{ route('asset.index') }}"
+                               class="btn btn-secondary">
+
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+
+                            </a>
 
                         </div>
 
@@ -189,7 +220,6 @@
 
     </div>
 
-</div>
+</section>
 
-</body>
-</html>
+@endsection

@@ -27,3 +27,7 @@ Route::get('/ticketing-it/destroy/{id}', [TicketController::class, 'destroy'])->
 Route::get('/ticketing-it/edit/{id}', [TicketController::class, 'edit'])->name('ticket.edit');
 
 Route::post('/ticketing-it/update/{id}', [TicketController::class, 'update'])->name('ticket.update');
+
+Route::get('/search', [AssetController::class, 'search'])->name('asset.search');
+
+Route::get('/ticketing-it/search', [TicketController::class, 'search'])->name('ticket.search');
